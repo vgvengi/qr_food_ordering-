@@ -4,7 +4,8 @@ const menuRoutes = require('./routes/menu');
 const orderRoutes = require('./routes/orders');
 
 const app = express();
-app.use(cors({ origin: process.env.CLIENT_ORIGIN }));
+const origins = (process.env.CLIENT_ORIGIN || '').split(',').map((s) => s.trim()).filter(Boolean);
+app.use(cors({ origin: origins }));
 app.use(express.json());
 
 app.get('/health', (_req, res) => res.json({ ok: true }));
